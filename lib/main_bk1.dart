@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 /// Flutter code sample for [Scaffold].
 
@@ -32,26 +31,19 @@ class _ShopeeHomeState extends State<ShopeeHome> {
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          leading: IconButton(
+          backgroundColor: Colors.lightBlueAccent,
+          leading: TextButton(
             onPressed: () {},
-            icon: const Icon(
+            child: const Icon(
               Icons.arrow_back,
               color: Colors.orangeAccent,
             ),
           ),
           title: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Tên gian hàng',
-                border: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.orange, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
-          ),
+              padding: const EdgeInsets.all(10),
+              child: const SearchBar(
+                hintText: 'searching',
+              )),
           actions: <Widget>[
             TextButton(
                 onPressed: () {},
@@ -76,7 +68,6 @@ class _ShopeeHomeState extends State<ShopeeHome> {
               ),
             ],
           ),
-          backgroundColor: Colors.lightBlueAccent,
         ),
         body: TabBarView(
           children: <Widget>[
