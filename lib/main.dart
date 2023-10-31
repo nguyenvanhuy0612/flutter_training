@@ -34,28 +34,39 @@ class _ShopeeHomeState extends State<ShopeeHome> {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {},
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back,
               color: Colors.orangeAccent,
             ),
           ),
           title: Container(
-            padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Tên gian hàng',
-                border: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.orange, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(10.0)),
+            child: Row(
+              children: [
+                Expanded(
+                    flex: 2,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          hintText: "Searching ...", border: InputBorder.none),
+                    )),
+                Expanded(
+                    flex: 0,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.black,
+                      ),
+                    ))
+              ],
             ),
           ),
           actions: <Widget>[
             TextButton(
                 onPressed: () {},
-                child: const Icon(
+                child: Icon(
                   Icons.filter_alt_outlined,
                   color: Colors.orangeAccent,
                 ))
