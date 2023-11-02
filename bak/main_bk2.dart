@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 /// Flutter code sample for [Scaffold].
 
-void main() => runApp(const ShopeeApp());
+//void main() => runApp(const ShopeeApp());
 
 class ShopeeApp extends StatelessWidget {
   const ShopeeApp({super.key});
@@ -41,15 +41,32 @@ class _ShopeeHomeState extends State<ShopeeHome> {
           ),
           title: Container(
             padding: const EdgeInsets.all(20.0),
-            child: TextFormField(
-              decoration: InputDecoration(
-                hintText: 'Tên gian hàng',
-                border: OutlineInputBorder(
-                  borderSide:
-                      const BorderSide(color: Colors.orange, width: 1.0),
-                  borderRadius: BorderRadius.circular(10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      hintText: 'Tên gian hàng',
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(color: Colors.orange, width: 1.0),
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+                Expanded(
+                  flex: 0,
+                  child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.camera_alt_outlined,
+                        color: Colors.orangeAccent,
+                        size: 20,
+                      )),
+                ),
+              ],
             ),
           ),
           actions: <Widget>[
