@@ -8,82 +8,85 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            TextField(
-              onChanged: (username) {
-                Provider.of<LoginModel>(context, listen: false)
-                    .setUsername(username);
-              },
-              decoration: InputDecoration(
-                labelText: 'Username',
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Login Page'),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              TextField(
+                onChanged: (username) {
+                  Provider.of<LoginModel>(context, listen: false)
+                      .setUsername(username);
+                },
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            TextField(
-              onChanged: (password) {
-                Provider.of<LoginModel>(context, listen: false)
-                    .setPassword(password);
-              },
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Password',
+              SizedBox(height: 20),
+              TextField(
+                onChanged: (password) {
+                  Provider.of<LoginModel>(context, listen: false)
+                      .setPassword(password);
+                },
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                ),
               ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                String username =
-                    Provider.of<LoginModel>(context, listen: false).username;
-                String password =
-                    Provider.of<LoginModel>(context, listen: false).password;
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  String username =
+                      Provider.of<LoginModel>(context, listen: false).username;
+                  String password =
+                      Provider.of<LoginModel>(context, listen: false).password;
 
-                // Check if user exists in registeredUsers list
-                bool isAuthenticated = registeredUsers.any((user) =>
-                    user.username == username && user.password == password);
+                  // Check if user exists in registeredUsers list
+                  bool isAuthenticated = registeredUsers.any((user) =>
+                      user.username == username && user.password == password);
 
-                if (isAuthenticated) {
+                  if (isAuthenticated) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ShopeeApp()),
+                    );
+                  } else {
+                    final snackBar = SnackBar(
+                      content: Text('Invalid username or password'),
+                      duration: Duration(seconds: 5),
+                    );
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  }
+                },
+                child: Text('Login'),
+              ),
+              SizedBox(height: 10),
+              TextButton(
+                onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => ShopeeApp()),
+                    MaterialPageRoute(builder: (context) => RegisterPage()),
                   );
-                } else {
-                  final snackBar = SnackBar(
-                    content: Text('Invalid username or password'),
-                    duration: Duration(seconds: 5),
+                },
+                child: Text('Register'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Navigate to the forgot password page
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ForgotPasswordPage()),
                   );
-                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                }
-              },
-              child: Text('Login'),
-            ),
-            SizedBox(height: 10),
-            TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterPage()),
-                );
-              },
-              child: Text('Register'),
-            ),
-            TextButton(
-              onPressed: () {
-                // Navigate to the forgot password page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ForgotPasswordPage()),
-                );
-              },
-              child: Text('Forgot Password?'),
-            ),
-          ],
+                },
+                child: Text('Forgot Password?'),
+              ),
+            ],
+          ),
         ),
       ),
     );

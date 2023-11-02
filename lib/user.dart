@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<User> registeredUsers = [User("huy", "huy")];
+List<User> registeredUsers = [User('huy', 'huy')];
 
 class User {
   final String username;

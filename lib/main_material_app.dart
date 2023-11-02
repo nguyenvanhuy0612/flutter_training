@@ -7,18 +7,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => LoginModel(),
-      child: Shopee(),
+      child: LoginPage(),
     ),
   );
-}
-
-class Shopee extends StatelessWidget {
-  const Shopee({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: LoginPage(),
-    );
-  }
 }
