@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Flutter code sample for [Scaffold].
+import '../lib_bk/main_material_app.dart';
+import '../lib_bk/login_page.dart';
 
 //void main() => runApp(const ShopeeApp());
 
@@ -10,69 +11,48 @@ class ShopeeApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ShopeeHome(),
-    );
-  }
-}
-
-class ShopeeHome extends StatefulWidget {
-  const ShopeeHome({super.key});
-
-  @override
-  State<ShopeeHome> createState() => _ShopeeHomeState();
-}
-
-class _ShopeeHomeState extends State<ShopeeHome> {
-  @override
-  Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
       length: 4,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(
+            onPressed: () {
+              Navigator.pop(context,MaterialPageRoute(builder: (context) => LoginPage()));
+            },
+            icon: Icon(
               Icons.arrow_back,
               color: Colors.orangeAccent,
             ),
           ),
           title: Container(
-            padding: const EdgeInsets.all(20.0),
+            decoration: BoxDecoration(
+                border: Border.all(color: Colors.red, width: 1.0),
+                borderRadius: BorderRadius.circular(10.0)),
             child: Row(
               children: [
                 Expanded(
-                  flex: 2,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Tên gian hàng',
-                      border: OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.orange, width: 1.0),
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
-                    ),
-                  ),
-                ),
+                    flex: 2,
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                          hintText: "Searching ...", border: InputBorder.none),
+                    )),
                 Expanded(
-                  flex: 0,
-                  child: IconButton(
+                    flex: 0,
+                    child: IconButton(
                       onPressed: () {},
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.camera_alt_outlined,
-                        color: Colors.orangeAccent,
-                        size: 20,
-                      )),
-                ),
+                        color: Colors.black,
+                      ),
+                    ))
               ],
             ),
           ),
           actions: <Widget>[
             TextButton(
                 onPressed: () {},
-                child: const Icon(
+                child: Icon(
                   Icons.filter_alt_outlined,
                   color: Colors.orangeAccent,
                 ))
