@@ -2,17 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../user/user_provider.dart';
 
-class ResetPage extends StatelessWidget {
-  ResetPage({super.key});
-
-  final usernameController = TextEditingController();
-  final newPasswordController = TextEditingController();
-
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final usernameController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Reset Password'),
+        title: Text('Register Page'),
       ),
       body: Center(
         child: Column(
@@ -24,40 +22,35 @@ class ResetPage extends StatelessWidget {
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.all(16.0),
               child: TextField(
-                controller: newPasswordController,
+                controller: passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  labelText: 'New Password',
-                  border: OutlineInputBorder(),
+                  labelText: 'Password',
                 ),
               ),
             ),
             ElevatedButton(
               onPressed: () {
                 final username = usernameController.text;
-                final newPassword = newPasswordController.text;
-                final userProvider =
-                    Provider.of<UserProvider>(context, listen: false);
+                final password = passwordController.text;
 
-                if (userProvider.users
-                    .any((user) => user.username == username)) {
-                  // Update the user's password
-                  userProvider.changePassword(username, newPassword);
+                final errorMessage =
+                    Provider.of<UserProvider>(context, listen: false)
+                        .registerUser(username, password);
 
+                if (errorMessage == null) {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Password Reset Successful'),
-                        content:
-                            Text('Your password has been reset successfully!'),
+                        title: Text('Registration Successful'),
+                        content: Text('You have successfully registered!'),
                         actions: <Widget>[
                           TextButton(
                             child: Text('OK'),
@@ -70,20 +63,19 @@ class ResetPage extends StatelessWidget {
                         ],
                       );
                     },
-                  );
+                  ); // Return to the login page after registering
                 } else {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Error'),
-                        content: Text(
-                            'Invalid username. Please enter a valid username.'),
+                        title: Text('Error: $errorMessage'),
+                        content: Text(errorMessage),
                         actions: <Widget>[
                           TextButton(
                             child: Text('OK'),
                             onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
+                              Navigator.of(context).pop();
                             },
                           ),
                         ],
@@ -92,7 +84,7 @@ class ResetPage extends StatelessWidget {
                   );
                 }
               },
-              child: Text('Reset Password'),
+              child: Text('Register'),
             ),
           ],
         ),

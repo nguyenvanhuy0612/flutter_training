@@ -2,253 +2,155 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../login/login_page.dart';
 import '../user/user_provider.dart';
+import 'home_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePage();
+  }
+}
+
+class _HomePage extends State<HomePage> {
+  static List<Tab> tabs = <Tab>[
+    Tab(
+      text: 'Liên quan',
+    ),
+    Tab(
+      text: 'Mới nhất',
+    ),
+    Tab(
+      text: 'Bán chạy',
+    ),
+    Tab(
+      text: 'Giá',
+    ),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    final currentUser = Provider.of<UserProvider>(context).currentUser;
-
-    Scaffold(
-      appBar: AppBar(
-        title: Text('Home Page'),
-      ),
-      body: Center(
-        child: currentUser != null
-            ? Text('Welcome, ${currentUser.username}!')
-            : Text('Not logged in'),
-      ),
-    );
+    final userProvider = Provider.of<UserProvider>(context);
+    final currentUser = userProvider.currentUser;
+    final searchController = TextEditingController();
 
     return DefaultTabController(
       initialIndex: 0,
-      length: 4,
+      length: tabs.length,
       child: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context,
-                  MaterialPageRoute(builder: (context) => LoginPage()));
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.orangeAccent,
-            ),
-          ),
-          title: Container(
-            decoration: BoxDecoration(
-                border: Border.all(color: Colors.red, width: 1.0),
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Row(
-              children: [
-                Expanded(
-                    flex: 2,
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          hintText: "Searching ...", border: InputBorder.none),
-                    )),
-                Expanded(
-                    flex: 0,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.camera_alt_outlined,
-                        color: Colors.black,
-                      ),
-                    ))
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.filter_alt_outlined,
-                  color: Colors.orangeAccent,
-                ))
-          ],
-          bottom: const TabBar(
-            tabs: <Widget>[
-              Tab(
-                text: 'Liên quan',
-              ),
-              Tab(
-                text: 'Mới nhất',
-              ),
-              Tab(
-                text: 'Bán chạy',
-              ),
-              Tab(
-                text: 'Giá',
-              ),
-            ],
-          ),
-          backgroundColor: Colors.lightBlueAccent,
-        ),
+        appBar: homeAppBar(context),
         body: TabBarView(
-          children: <Widget>[
-            Center(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[100],
-                      child: const Text("He'd have you all unravel at the"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[200],
-                      child: const Text('Heed not the rabble'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[400],
-                      child: const Text('Who scream'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[500],
-                      child: const Text('Revolution is coming...'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[600],
-                      child: const Text('Revolution, they...'),
-                    ),
-                  ]),
-            ),
-            Center(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[100],
-                      child: const Text("He'd have you all unravel at the"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[200],
-                      child: const Text('Heed not the rabble'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[400],
-                      child: const Text('Who scream'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[500],
-                      child: const Text('Revolution is coming...'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[600],
-                      child: const Text('Revolution, they...'),
-                    ),
-                  ]),
-            ),
-            Center(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[100],
-                      child: const Text("He'd have you all unravel at the"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[200],
-                      child: const Text('Heed not the rabble'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[400],
-                      child: const Text('Who scream'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[500],
-                      child: const Text('Revolution is coming...'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[600],
-                      child: const Text('Revolution, they...'),
-                    ),
-                  ]),
-            ),
-            Center(
-              child: GridView.count(
-                  primary: false,
-                  padding: const EdgeInsets.all(20),
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[100],
-                      child: const Text("He'd have you all unravel at the"),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[200],
-                      child: const Text('Heed not the rabble'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[300],
-                      child: const Text('Sound of screams but the'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[400],
-                      child: const Text('Who scream'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[500],
-                      child: const Text('Revolution is coming...'),
-                    ),
-                    Container(
-                      padding: const EdgeInsets.all(8),
-                      color: Colors.teal[600],
-                      child: const Text('Revolution, they...'),
-                    ),
-                  ]),
-            ),
+          children: [
+            TabContent(index: 0),
+            TabContent(index: 1),
+            TabContent(index: 2),
+            TabContent(index: 3),
           ],
         ),
       ),
+    );
+  }
+
+  AppBar homeAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        onPressed: () {
+          Navigator.pop(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.orangeAccent,
+        ),
+      ),
+      title: Container(
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.red, width: 1.0),
+            borderRadius: BorderRadius.circular(10.0)),
+        child: Row(children: <Widget>[
+          Expanded(
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Search',
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              // Handle search icon press if needed
+            },
+          ),
+        ]),
+      ),
+      actions: <Widget>[
+        TextButton(
+            onPressed: () {},
+            child: Icon(
+              Icons.filter_alt_outlined,
+              color: Colors.orangeAccent,
+            ))
+      ],
+      bottom: TabBar(
+        tabs: tabs,
+      ),
+      backgroundColor: Colors.lightBlueAccent,
+    );
+  }
+
+  TabBarView homeTabBarView() {
+    return TabBarView(
+      children: <Widget>[
+        gridView(),
+        gridView(),
+        gridView(),
+        gridView(),
+      ],
+    );
+  }
+
+  GridView gridView() {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) {
+        // Build your grid item here
+        return Container(
+          color: Colors.blue,
+          margin: EdgeInsets.all(8.0),
+        );
+      },
+      itemCount: 8, // Specify the number of items in your grid
+    );
+  }
+}
+
+class TabContent extends StatelessWidget {
+  final int index;
+
+  TabContent({required this.index});
+
+  @override
+  Widget build(BuildContext context) {
+    final homeProvider = Provider.of<HomeProvider>(context);
+
+    List<String> data = homeProvider.getDataForTabIndex(index);
+
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) {
+        return Container(
+          color: Colors.blue,
+          margin: EdgeInsets.all(8.0),
+          child: Center(child: Text(data[index])),
+        );
+      },
+      itemCount: data.length,
     );
   }
 }

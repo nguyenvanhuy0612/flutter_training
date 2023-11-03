@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import '../user/user_provider.dart';
 
 class ResetPage extends StatelessWidget {
-  ResetPage({super.key});
-
   final usernameController = TextEditingController();
   final newPasswordController = TextEditingController();
 
@@ -24,7 +22,6 @@ class ResetPage extends StatelessWidget {
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),
@@ -35,7 +32,6 @@ class ResetPage extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'New Password',
-                  border: OutlineInputBorder(),
                 ),
               ),
             ),

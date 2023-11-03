@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'register_page.dart';
+import 'reset_page.dart';
+import '../home/home_page.dart';
 import '../user/user_provider.dart';
 
-class RegisterPage extends StatelessWidget {
-  const RegisterPage({super.key});
-
+class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final usernameController = TextEditingController();
@@ -12,7 +13,7 @@ class RegisterPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Register Page'),
+        title: Text('Login Page'),
       ),
       body: Center(
         child: Column(
@@ -24,7 +25,9 @@ class RegisterPage extends StatelessWidget {
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
@@ -35,7 +38,9 @@ class RegisterPage extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
-                  border: OutlineInputBorder(),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
@@ -46,34 +51,19 @@ class RegisterPage extends StatelessWidget {
 
                 final errorMessage =
                     Provider.of<UserProvider>(context, listen: false)
-                        .registerUser(username, password);
+                        .loginUser(username, password);
 
                 if (errorMessage == null) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Registration Successful'),
-                        content: Text('You have successfully registered!'),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop(); // Close the dialog
-                              Navigator.pop(
-                                  context); // Return to the login page
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  ); // Return to the login page after registering
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
                 } else {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Error: $errorMessage'),
+                        title: Text('Error'),
                         content: Text(errorMessage),
                         actions: <Widget>[
                           TextButton(
@@ -88,7 +78,25 @@ class RegisterPage extends StatelessWidget {
                   );
                 }
               },
+              child: Text('Login'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()),
+                );
+              },
               child: Text('Register'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ResetPage()),
+                );
+              },
+              child: Text('Reset Password'),
             ),
           ],
         ),

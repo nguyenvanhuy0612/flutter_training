@@ -13,11 +13,10 @@ class UserProvider extends ChangeNotifier {
   User? get currentUser => _currentUser;
 
   String? loginUser(String username, String password) {
-    final user = _users.firstWhere(
-        (user) => user.username == username && user.password == password,
+    final user = _users.firstWhere((user) => user.username == username,
         orElse: () => User('', ''));
 
-    if (user.password != '') {
+    if (user.password == password) {
       _currentUser = user;
       notifyListeners();
       return null; // Return null if login is successful
