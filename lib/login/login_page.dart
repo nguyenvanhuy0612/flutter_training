@@ -25,6 +25,9 @@ class LoginPage extends StatelessWidget {
                 controller: usernameController,
                 decoration: InputDecoration(
                   labelText: 'Username',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
@@ -35,6 +38,9 @@ class LoginPage extends StatelessWidget {
                 obscureText: true,
                 decoration: InputDecoration(
                   labelText: 'Password',
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.grey),
+                  ),
                 ),
               ),
             ),
