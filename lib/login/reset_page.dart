@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../user/user_provider.dart';
+import 'package:flutter_training/user/user_provider.dart';
 
 class ResetPage extends StatelessWidget {
   ResetPage({super.key});

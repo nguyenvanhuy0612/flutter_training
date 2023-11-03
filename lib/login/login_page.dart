@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_training/home/home_page.dart';
+import 'package:flutter_training/user/user_provider.dart';
 import 'register_page.dart';
 import 'reset_page.dart';
-import '../home/home_page.dart';
-import '../user/user_provider.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
