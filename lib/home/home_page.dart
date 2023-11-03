@@ -99,33 +99,6 @@ class _HomePage extends State<HomePage> {
       backgroundColor: Colors.lightBlueAccent,
     );
   }
-
-  TabBarView homeTabBarView() {
-    return TabBarView(
-      children: <Widget>[
-        gridView(),
-        gridView(),
-        gridView(),
-        gridView(),
-      ],
-    );
-  }
-
-  GridView gridView() {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
-      itemBuilder: (context, index) {
-        // Build your grid item here
-        return Container(
-          color: Colors.blue,
-          margin: EdgeInsets.all(8.0),
-        );
-      },
-      itemCount: 8, // Specify the number of items in your grid
-    );
-  }
 }
 
 class TabContent extends StatelessWidget {
