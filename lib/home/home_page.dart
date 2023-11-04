@@ -38,6 +38,8 @@ class _HomePageContent extends State<HomePageContent> {
   void initState() {
     super.initState();
     _homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _homeProvider.loadDataFromJson());
+    //WidgetsBinding.instance.addPostFrameCallback((_) => initLoad());
   }
 
   List<Product> getProducts() {
