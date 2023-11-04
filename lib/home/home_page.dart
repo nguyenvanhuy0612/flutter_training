@@ -51,11 +51,18 @@ class _HomePageContent extends State<HomePageContent> {
   void initLoad() {
     print('initLoad: tab1Data: $tab1Data');
     setState(() {
+      var listSize = getProducts().length;
       List<Product> shuffledResults = List.from(getProducts())..shuffle();
-      tab1Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
-      tab2Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
-      tab3Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
-      tab4Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+      tab1Data = shuffledResults.sublist(0, min(listSize, 10));
+
+      shuffledResults = List.from(getProducts())..shuffle();
+      tab2Data = shuffledResults.sublist(0, min(listSize, 10));
+
+      shuffledResults = List.from(getProducts())..shuffle();
+      tab3Data = shuffledResults.sublist(0, min(listSize, 10));
+
+      shuffledResults = List.from(getProducts())..shuffle();
+      tab4Data = shuffledResults.sublist(0, min(listSize, 10));
     });
   }
 
