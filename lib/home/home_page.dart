@@ -38,6 +38,7 @@ class _HomePageContent extends State<HomePageContent> {
   void initState() {
     super.initState();
     _homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    _homeProvider.waitLoading();
   }
 
   List<Product> getProducts() {
@@ -82,7 +83,7 @@ class _HomePageContent extends State<HomePageContent> {
   }
 
   Widget buildCard(Product product) {
-    String imageUrl = '';
+    String imageUrl = product.imageUrl ?? 'assets/s23u.jpg';
 
     return Card(
       elevation: 4.0,
