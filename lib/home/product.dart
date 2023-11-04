@@ -1,59 +1,28 @@
 class Product {
-  late String name;
-  late int milesPerGallon;
-  late int cylinders;
-  late int displacement;
-  late int horsepower;
-  late int weightInLbs;
-  late double acceleration;
-  late DateTime year;
-  late String origin;
+  final String name;
+  final String modelName;
+  final double starRate;
+  final int numberOfBought;
+  final double price;
+  final String brand;
 
   Product({
     required this.name,
-    required this.milesPerGallon,
-    required this.cylinders,
-    required this.displacement,
-    required this.horsepower,
-    required this.weightInLbs,
-    required this.acceleration,
-    required this.year,
-    required this.origin,
+    required this.modelName,
+    required this.starRate,
+    required this.numberOfBought,
+    required this.price,
+    required this.brand,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
     return Product(
       name: json['Name'] as String? ?? '',
-      milesPerGallon: (json['Miles_per_Gallon'] as num?)?.toInt() ?? 0,
-      cylinders: (json['Cylinders'] as int?) ?? 0,
-      displacement: (json['Displacement'] as num?)?.toInt() ?? 0,
-      horsepower: (json['Horsepower'] as int?) ?? 0,
-      weightInLbs: (json['Weight_in_lbs'] as int?) ?? 0,
-      acceleration: (json['Acceleration'] as num?)?.toDouble() ?? 0.0,
-      year: DateTime.tryParse(json['Year'] as String? ?? '') ?? DateTime.now(),
-      origin: json['Origin'] as String? ?? '',
+      modelName: json['Model Name'] as String? ?? '',
+      starRate: (json['Star Rate'] as num?)?.toDouble() ?? 0.0,
+      numberOfBought: (json['Number Bought'] as int?) ?? 0,
+      price: (json['Price'] as num?)?.toDouble() ?? 0.0,
+      brand: json['Brand'] as String? ?? '',
     );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'Name': name,
-      'Miles_per_Gallon': milesPerGallon,
-      'Cylinders': cylinders,
-      'Displacement': displacement,
-      'Horsepower': horsepower,
-      'Weight_in_lbs': weightInLbs,
-      'Acceleration': acceleration,
-      'Year': year.toIso8601String(),
-      'Origin': origin,
-    };
-  }
-
-  @override
-  String toString() {
-    return 'Product{name: $name, milesPerGallon: $milesPerGallon, '
-        'cylinders: $cylinders, displacement: $displacement, '
-        'horsepower: $horsepower, weightInLbs: $weightInLbs, '
-        'acceleration: $acceleration, year: $year, origin: $origin}';
   }
 }

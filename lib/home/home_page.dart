@@ -74,10 +74,62 @@ class _HomePageContent extends State<HomePageContent> {
         return Container(
           color: Colors.blue,
           margin: EdgeInsets.all(8.0),
-          child: Center(child: Text(data[index].name)),
+          child: Center(child: buildCard(data[index])),
         );
       },
       itemCount: data.length,
+    );
+  }
+
+  Widget buildCard(Product product) {
+    String imageUrl = '';
+
+    return Card(
+      elevation: 4.0,
+      margin: EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Product Image (if available)
+          imageUrl.isNotEmpty
+              ? Image.network(imageUrl, height: 150, fit: BoxFit.cover)
+              : Container(height: 150, color: Colors.grey),
+          // Placeholder image
+
+          // Product Name
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              product.name,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          // Star Rate and Number Bought
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Star Rate: ${product.starRate}'),
+                Text('Number Bought: ${product.numberOfBought}'),
+              ],
+            ),
+          ),
+
+          // Price
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Price: \$${product.price.toStringAsFixed(2)}'),
+          ),
+
+          // Brand
+          Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text('Brand: ${product.brand}'),
+          ),
+        ],
+      ),
     );
   }
 
