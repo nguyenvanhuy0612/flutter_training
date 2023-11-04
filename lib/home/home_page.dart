@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_training/home/product.dart';
 import 'package:flutter_training/home/tab.dart';
@@ -40,6 +42,16 @@ class _HomePageContent extends State<HomePageContent> {
 
   List<Product> getProducts() {
     return _homeProvider.products;
+  }
+
+  void initLoad() {
+    setState(() {
+      List<Product> shuffledResults = List.from(getProducts())..shuffle();
+      tab1Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+      tab2Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+      tab3Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+      tab4Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+    });
   }
 
   void performSearch(String searchValue) {

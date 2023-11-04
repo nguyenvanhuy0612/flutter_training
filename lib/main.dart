@@ -16,7 +16,7 @@ void main() {
         ChangeNotifierProvider(create: (context) => HomeProvider()),
       ],
       child: MaterialApp(
-        home: HomePage(), // LoginPage(), HomePage(),
+        home: LoginPage(), // LoginPage(), HomePage(),
       ),
     ),
   );

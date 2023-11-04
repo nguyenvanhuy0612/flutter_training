@@ -15,6 +15,10 @@ class HomeProvider extends ChangeNotifier {
     _loadDataFromJson();
   }
 
+  Future<void> waitLoading() async {
+    await _loadDataFromJson();
+  }
+
   Future<void> _loadDataFromJson() async {
     try {
       String jsonData = await rootBundle.loadString('products.json');
