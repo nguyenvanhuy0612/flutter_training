@@ -1,117 +1,59 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/home/product.dart';
+import 'package:flutter_training/home/tab.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_training/login/login_page.dart';
 import 'package:flutter_training/user/user_provider.dart';
 import 'home_provider.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({super.key});
-
-  @override
-  State<StatefulWidget> createState() {
-    return _HomePage();
-  }
-}
-
-class _HomePage extends State<HomePage> {
-  static List<Tab> tabs = <Tab>[
-    Tab(
-      text: 'Liên quan',
-    ),
-    Tab(
-      text: 'Mới nhất',
-    ),
-    Tab(
-      text: 'Bán chạy',
-    ),
-    Tab(
-      text: 'Giá',
-    ),
-  ];
-
+class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final userProvider = Provider.of<UserProvider>(context);
-    final currentUser = userProvider.currentUser;
-    final searchController = TextEditingController();
-
     return DefaultTabController(
       initialIndex: 0,
-      length: tabs.length,
-      child: Scaffold(
-        appBar: homeAppBar(context),
-        body: TabBarView(
-          children: [
-            TabContent(index: 0),
-            TabContent(index: 1),
-            TabContent(index: 2),
-            TabContent(index: 3),
-          ],
-        ),
-      ),
-    );
-  }
-
-  AppBar homeAppBar(BuildContext context) {
-    return AppBar(
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(
-              context, MaterialPageRoute(builder: (context) => LoginPage()));
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: Colors.orangeAccent,
-        ),
-      ),
-      title: Container(
-        decoration: BoxDecoration(
-            border: Border.all(color: Colors.red, width: 1.0),
-            borderRadius: BorderRadius.circular(10.0)),
-        child: Row(children: <Widget>[
-          Expanded(
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Search',
-                border: InputBorder.none,
-              ),
-            ),
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Handle search icon press if needed
-            },
-          ),
-        ]),
-      ),
-      actions: <Widget>[
-        TextButton(
-            onPressed: () {},
-            child: Icon(
-              Icons.filter_alt_outlined,
-              color: Colors.orangeAccent,
-            ))
-      ],
-      bottom: TabBar(
-        tabs: tabs,
-      ),
-      backgroundColor: Colors.lightBlueAccent,
+      length: TabApp.tabs.length, // Use the length of the static list
+      child: HomePageContent(),
     );
   }
 }
 
-class TabContent extends StatelessWidget {
-  final int index;
+class HomePageContent extends StatefulWidget {
+  @override
+  _HomePageContent createState() => _HomePageContent();
+}
 
-  TabContent({required this.index});
+class _HomePageContent extends State<HomePageContent> {
+  TextEditingController searchController = TextEditingController();
+
+  List<Product> tab1Data = [];
+  List<Product> tab2Data = [];
+  List<Product> tab3Data = [];
+  List<Product> tab4Data = [];
+
+  late HomeProvider _homeProvider;
 
   @override
-  Widget build(BuildContext context) {
-    final homeProvider = Provider.of<HomeProvider>(context);
+  void initState() {
+    super.initState();
+    _homeProvider = Provider.of<HomeProvider>(context, listen: false);
+  }
 
-    List<String> data = homeProvider.getDataForTabIndex(index);
+  List<Product> getProducts() {
+    return _homeProvider.products;
+  }
 
+  void performSearch(String searchValue) {
+    List<Product> searchResults = _homeProvider.searchProducts(searchValue);
+
+    setState(() {
+      tab1Data = _homeProvider.getTab1Data(searchResults);
+      tab2Data = _homeProvider.getTab2Data(searchResults);
+      tab3Data = _homeProvider.getTab3Data(searchResults);
+      tab4Data = _homeProvider.getTab4Data(searchResults);
+    });
+  }
+
+  Widget buildTabContent(List<Product> data) {
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -120,10 +62,78 @@ class TabContent extends StatelessWidget {
         return Container(
           color: Colors.blue,
           margin: EdgeInsets.all(8.0),
-          child: Center(child: Text(data[index])),
+          child: Center(child: Text(data[index].name)),
         );
       },
       itemCount: data.length,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(
+                context, MaterialPageRoute(builder: (context) => LoginPage()));
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.orangeAccent,
+          ),
+        ),
+        title: Container(
+          decoration: BoxDecoration(
+              // color: Colors.white,
+              border: Border.all(color: Colors.red, width: 1.0),
+              borderRadius: BorderRadius.circular(10.0)),
+          child: Row(children: <Widget>[
+            Expanded(
+              child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  border: InputBorder.none,
+                ),
+              ),
+            ),
+            IconButton(
+              icon: Icon(Icons.clear), // This is the clear button
+              onPressed: () {
+                searchController.clear(); // Clear the text in the TextField
+              },
+            ),
+            IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                String searchValue = searchController.text;
+                performSearch(searchValue);
+              },
+            ),
+          ]),
+        ),
+        actions: <Widget>[
+          TextButton(
+              onPressed: () {},
+              child: Icon(
+                Icons.filter_alt_outlined,
+                color: Colors.orangeAccent,
+              ))
+        ],
+        bottom: TabBar(
+          tabs: TabApp.tabs,
+        ),
+        backgroundColor: Colors.lightBlueAccent,
+      ),
+      body: TabBarView(
+        children: [
+          buildTabContent(tab1Data),
+          buildTabContent(tab2Data),
+          buildTabContent(tab3Data),
+          buildTabContent(tab4Data),
+        ],
+      ),
     );
   }
 }
