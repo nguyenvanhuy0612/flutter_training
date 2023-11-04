@@ -12,19 +12,15 @@ class HomeProvider extends ChangeNotifier {
   List<Product> get products => _products;
 
   HomeProvider() {
-    _loadDataFromJson();
+    loadDataFromJson();
   }
 
-  Future<void> waitLoading() async {
-    await _loadDataFromJson();
-  }
-
-  Future<void> _loadDataFromJson() async {
+  Future<void> loadDataFromJson() async {
     try {
       String jsonData = await rootBundle.loadString('products.json');
       List<dynamic> jsonList = json.decode(jsonData);
       _products = jsonList.map((json) => Product.fromJson(json)).toList();
-      notifyListeners();
+      //notifyListeners();
     } catch (error) {
       print('Error loading data from JSON: $error');
     }

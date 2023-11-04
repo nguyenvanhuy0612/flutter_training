@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
-      length: TabApp.tabs.length, // Use the length of the static list
+      length: TabApp.tabs.length,
       child: HomePageContent(),
     );
   }
@@ -38,7 +38,6 @@ class _HomePageContent extends State<HomePageContent> {
   void initState() {
     super.initState();
     _homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    _homeProvider.waitLoading();
   }
 
   List<Product> getProducts() {

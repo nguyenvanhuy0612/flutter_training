@@ -16,6 +16,8 @@ void main() {
         ChangeNotifierProvider(create: (context) => HomeProvider()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Shop App',
         home: LoginPage(), // LoginPage(), HomePage(),
       ),
     ),
