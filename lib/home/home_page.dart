@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -36,10 +37,11 @@ class _HomePageContent extends State<HomePageContent> {
 
   @override
   void initState() {
-    super.initState();
     _homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    super.initState();
     //WidgetsBinding.instance.addPostFrameCallback((_) async => await _homeProvider.loadDataFromJson());
     //WidgetsBinding.instance.addPostFrameCallback((_) => initLoad());
+    //initLoad();
   }
 
   List<Product> getProducts() {
@@ -47,6 +49,7 @@ class _HomePageContent extends State<HomePageContent> {
   }
 
   void initLoad() {
+    print('initLoad: tab1Data: $tab1Data');
     setState(() {
       List<Product> shuffledResults = List.from(getProducts())..shuffle();
       tab1Data = shuffledResults.sublist(0, min(shuffledResults.length, 10));
@@ -169,12 +172,17 @@ class _HomePageContent extends State<HomePageContent> {
                   hintText: 'Search',
                   border: InputBorder.none,
                 ),
+                onChanged: (text) {
+                  print('First text field: $text (${text.characters.length})');
+                  performSearch(text);
+                },
               ),
             ),
             IconButton(
-              icon: Icon(Icons.clear), // This is the clear button
+              icon: Icon(Icons.clear),
               onPressed: () {
-                searchController.clear(); // Clear the text in the TextField
+                searchController.clear();
+                initLoad();
               },
             ),
             IconButton(

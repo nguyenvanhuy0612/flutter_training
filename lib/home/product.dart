@@ -27,4 +27,9 @@ class Product {
         brand: json['Brand'] as String? ?? '',
         imageUrl: json['Image Url'] as String?);
   }
+
+  @override
+  String toString() {
+    return 'Product{name: $name}';
+  }
 }

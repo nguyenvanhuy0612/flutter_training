@@ -20,6 +20,7 @@ class HomeProvider extends ChangeNotifier {
       String jsonData = await rootBundle.loadString('products.json');
       List<dynamic> jsonList = json.decode(jsonData);
       _products = jsonList.map((json) => Product.fromJson(json)).toList();
+      print('_products: $_products');
       //notifyListeners();
     } catch (error) {
       print('Error loading data from JSON: $error');
