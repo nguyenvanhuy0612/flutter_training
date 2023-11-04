@@ -93,7 +93,13 @@ class _HomePageContent extends State<HomePageContent> {
         children: [
           // Product Image (if available)
           imageUrl.isNotEmpty
-              ? Image.network(imageUrl, height: 150, fit: BoxFit.cover)
+              ? Container(
+                  height: 80,
+                  width: 80,
+                  child: Image(
+                    image: AssetImage('assets/s23u.jpg'),
+                  ),
+                ) //Image.network(imageUrl, height: 150, fit: BoxFit.cover)
               : Container(height: 150, color: Colors.grey),
           // Placeholder image
 
@@ -137,6 +143,7 @@ class _HomePageContent extends State<HomePageContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
