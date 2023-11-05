@@ -37,8 +37,8 @@ class _HomePageContent extends State<HomePageContent> {
 
   @override
   void initState() {
-    _homeProvider = Provider.of<HomeProvider>(context, listen: false);
     super.initState();
+    _homeProvider = Provider.of<HomeProvider>(context, listen: false);
     //WidgetsBinding.instance.addPostFrameCallback((_) async => await _homeProvider.loadDataFromJson());
     //WidgetsBinding.instance.addPostFrameCallback((_) => initLoad());
     //initLoad();
