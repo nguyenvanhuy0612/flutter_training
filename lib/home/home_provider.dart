@@ -17,7 +17,7 @@ class HomeProvider extends ChangeNotifier {
 
   Future<void> loadDataFromJson() async {
     try {
-      String jsonData = await rootBundle.loadString('products.json');
+      String jsonData = await rootBundle.loadString('assets/products.json');
       List<dynamic> jsonList = json.decode(jsonData);
       _products = jsonList.map((json) => Product.fromJson(json)).toList();
       print('_products: $_products');
