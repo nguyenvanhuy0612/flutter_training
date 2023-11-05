@@ -56,7 +56,8 @@ class HomeProvider extends ChangeNotifier {
   }
 
   List<Product> getTab4Data(List<Product> results) {
-    List<Product> shuffledResults = List.from(results)..shuffle();
-    return shuffledResults.sublist(0, min(shuffledResults.length, 10));
+    List<Product> sortedList = List.from(results);
+    sortedList.sort((a, b) => a.price.compareTo(b.price));
+    return sortedList.sublist(0, min(sortedList.length, 10));
   }
 }

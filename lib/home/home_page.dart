@@ -62,7 +62,9 @@ class _HomePageContent extends State<HomePageContent> {
       tab3Data = shuffledResults.sublist(0, min(listSize, 10));
 
       shuffledResults = List.from(getProducts())..shuffle();
-      tab4Data = shuffledResults.sublist(0, min(listSize, 10));
+      shuffledResults = shuffledResults.sublist(0, min(shuffledResults.length, 10));
+      shuffledResults.sort((a, b) => a.price.compareTo(b.price));
+      tab4Data = shuffledResults;
     });
   }
 
