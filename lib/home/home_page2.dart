@@ -6,26 +6,25 @@ import 'package:flutter_training/home/product.dart';
 import 'package:flutter_training/home/tab.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_training/login/login_page.dart';
-import 'package:flutter_training/user/user_provider.dart';
 import 'home_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       initialIndex: 0,
       length: TabApp.tabs.length,
-      child: HomePageContent(),
+      child: HomePageContent2(),
     );
   }
 }
 
-class HomePageContent extends StatefulWidget {
+class HomePageContent2 extends StatefulWidget {
   @override
-  _HomePageContent createState() => _HomePageContent();
+  _HomePageContent2 createState() => _HomePageContent2();
 }
 
-class _HomePageContent extends State<HomePageContent> {
+class _HomePageContent2 extends State<HomePageContent2> {
   TextEditingController searchController = TextEditingController();
 
   List<Product> tab1Data = [];
@@ -33,25 +32,19 @@ class _HomePageContent extends State<HomePageContent> {
   List<Product> tab3Data = [];
   List<Product> tab4Data = [];
 
-  List<Product> allProducts = [];
-
   late HomeProvider _homeProvider;
 
   @override
   void initState() {
     super.initState();
     _homeProvider = Provider.of<HomeProvider>(context, listen: false);
-    //loadingDataToAllProducts();
-    //WidgetsBinding.instance.addPostFrameCallback((_) async => await _homeProvider.loadDataFromJson());
-    //WidgetsBinding.instance.addPostFrameCallback((_) => initLoad());
-    //getProducts();
-    initLoad();
+    loadingDataToAllProducts();
   }
 
   void loadingDataToAllProducts() async {
-    var productFromJson = await _homeProvider.loadDataFromJson2();
+    await _homeProvider.loadDataFromJson();
     setState(() {
-      allProducts = productFromJson;
+      List<Product> allProducts = getProducts();
       var listSize = allProducts.length;
       print('loadingDataToAllProducts: allProducts: $allProducts');
       List<Product> shuffledResults = List.from(allProducts)..shuffle();
