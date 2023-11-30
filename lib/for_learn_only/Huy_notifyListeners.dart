@@ -59,7 +59,8 @@ class HomePage extends StatelessWidget {
             ),
             // Display the current count from the Counter
             Text(
-              'index: $index - counter.count: ${counter.count}',
+              //'index: $index - counter.count: ${counter.count}',
+              'index: $index ${index % 3 == 0 ? " - counter.count: ${counter.count}" : ""}',
               style: TextStyle(fontSize: 48),
             ),
           ],
