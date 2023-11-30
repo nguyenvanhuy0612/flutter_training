@@ -42,8 +42,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Access the Counter instance from the Provider
     final counter = Provider.of<Counter>(context);
-    print('index - $index');
+    print("===================HomePage render!!!========================");
     index++;
+    print('index - $index, counter.count - ${counter.count}');
     return Scaffold(
       appBar: AppBar(
         title: Text('Provider Example'),
@@ -54,10 +55,11 @@ class HomePage extends StatelessWidget {
           children: <Widget>[
             Text(
               'Count:',
+                style: TextStyle(fontSize: 48)
             ),
             // Display the current count from the Counter
             Text(
-              '$index - ${counter.count}',
+              'index: $index - counter.count: ${counter.count}',
               style: TextStyle(fontSize: 48),
             ),
           ],

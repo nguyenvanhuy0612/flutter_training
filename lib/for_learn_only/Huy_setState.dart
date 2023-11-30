@@ -26,11 +26,13 @@ class _CounterAppState extends State<CounterApp> {
   void _increment() {
     setState(() {
       _count++;
+      print("_increment $_count");
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("==================_CounterAppState render!!!======================");
     return Scaffold(
       appBar: AppBar(
         title: Text('Counter App with setState'),
