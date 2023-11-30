@@ -24,6 +24,7 @@ class _CounterAppState extends State<CounterApp> {
   int _count = 0;
 
   void _increment() {
+    print("_increment invoke");
     setState(() {
       _count++;
       print("_increment $_count");
@@ -45,7 +46,7 @@ class _CounterAppState extends State<CounterApp> {
               'Count:',
             ),
             Text(
-              '$_count',
+              'count - $_count',
               style: TextStyle(fontSize: 48),
             ),
           ],
