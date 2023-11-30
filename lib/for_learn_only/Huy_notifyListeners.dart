@@ -36,7 +36,10 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
+  //static int index = 0;
   int index = 0;
+
+  //const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
